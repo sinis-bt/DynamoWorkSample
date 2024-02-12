@@ -1,42 +1,37 @@
-# Slim Framework 4 Skeleton Application
+Nobel Laureates API Endpoint
+This repository contains a C# implementation of an API endpoint designed to fetch and present information about Nobel laureates.
 
-[![Coverage Status](https://coveralls.io/repos/github/slimphp/Slim-Skeleton/badge.svg?branch=master)](https://coveralls.io/github/slimphp/Slim-Skeleton?branch=master)
+Functionality
+Fetch from Open API: The endpoint retrieves Nobel laureate data from the open API.
 
-Use this skeleton application to quickly setup and start working on a new Slim Framework 4 application. This application uses the latest Slim 4 with Slim PSR-7 implementation and PHP-DI container implementation. It also uses the Monolog logger.
+JSON Parsing: The retrieved JSON response is parsed to extract relevant information.
 
-This skeleton application was built for Composer. This makes setting up a new Slim Framework application quick and easy.
+Sorting by Date Awarded: Laureates are sorted in descending order based on the date they were awarded.
 
-## Install the Application
+Limiting to Recent 20 Laureates: The list is limited to the most recent 20 laureates to ensure a concise and relevant output.
 
-Run this command from the directory in which you want to install your new Slim Framework application. You will require PHP 7.4 or newer.
+JSON Output Format: The endpoint outputs a JSON response with the following fields for each laureate, presented in English:
 
-```bash
-composer create-project slim/slim-skeleton [my-app-name]
-```
+Full name
+Birth date
+Native country
+Category
+Date awarded
+Project Purpose
+This project is designed to be a versatile and efficient solution for retrieving and displaying Nobel laureate data. It aims to provide valuable insights in a clear and structured format, facilitating easy integration and usage.
 
-Replace `[my-app-name]` with the desired directory name for your new application. You'll want to:
+Getting Started
+To use this project, follow these steps:
 
-* Point your virtual host document root to your new application's `public/` directory.
-* Ensure `logs/` is web writable.
+Clone the repository to your local machine.
 
-To run the application in development, you can run these commands 
+bash
+Copy code
+git clone https://github.com/sinis-bt/DynamoWorkSample.git
+Install any required dependencies.
 
-```bash
-cd [my-app-name]
-composer start
-```
+Run the C# application to start the API endpoint.
 
-Or you can use `docker-compose` to run the app with `docker`, so you can run these commands:
-```bash
-cd [my-app-name]
-docker-compose up -d
-```
-After that, open `http://localhost:8080` in your browser.
+Contributors
+Sinisha Mijajlovikj
 
-Run this command in the application directory to run the test suite
-
-```bash
-composer test
-```
-
-That's it! Now go build something cool.
