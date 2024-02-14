@@ -95,7 +95,7 @@ class LaureateFetcher
                 new DateTime($rawLaureate['birth']['date'] ?? $rawLaureate["founded"]["date"]),
                 $rawLaureate["birth"]["place"]["country"]["en"] ?? null,
                 $rawLaureate["nobelPrizes"][0]["category"]["en"],
-                new DateTime($rawLaureate["nobelPrizes"][0]['dateAwarded']) ?? null
+                new DateTime($rawLaureate["nobelPrizes"][0]['dateAwarded'])
             );
         } catch (Exception $e) {
             // Handle any exceptions that might occur during the mapping process
