@@ -70,9 +70,6 @@ class LaureateFetcher
         foreach ($rawLaureatesData as $rawLaureate) {
             // Skip invalid data
             if (!is_array($rawLaureate)) {
-
-                var_dump( $rawLaureate );
-
                 continue;
             }
 
