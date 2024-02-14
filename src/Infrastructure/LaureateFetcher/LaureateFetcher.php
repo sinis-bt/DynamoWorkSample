@@ -10,25 +10,22 @@ use RuntimeException;
 class LaureateFetcher
 {
     private const API_BASE_URL = 'https://api.nobelprize.org/2.1/laureates';
-    private const DEFAULT_LIMIT = 20;
     private const DEFAULT_YEAR_RANGE = 2;
 
     /**
      * Fetches the most recent Nobel Prize laureates from the API.
      *
-     * @param int $limit Number of laureates to retrieve.
      * @param int $yearRange Number of years to go back from the current year.
      * @return array Array of laureates' information.
      * @throws RuntimeException If there is an error fetching data from the API.
      * @throws RuntimeException|Exception If there is an error decoding JSON data.
      */
-    public function getRecentLaureates(int $limit, int $yearRange) : array
+    public function getRecentLaureates(int $yearRange) : array
     {
 
         $currentYear = date('Y');
         $startYear = $currentYear - $yearRange;
-
-        $url = self::API_BASE_URL . "?limit={$limit}&nobelPrizeYear={$startYear}&yearTo={$currentYear}";
+        $url = self::API_BASE_URL . "?nobelPrizeYear=$startYear&yearTo=$currentYear";
 
         $response = file_get_contents($url);
 
@@ -54,7 +51,12 @@ class LaureateFetcher
      */
     public function get20RecentLaureates(): array
     {
-        return $this->getRecentLaureates(self::DEFAULT_LIMIT, self::DEFAULT_YEAR_RANGE);
+        $listOfLaureates = $this->getRecentLaureates(self::DEFAULT_YEAR_RANGE);
+        if (empty($listOfLaureates)){
+            return [];
+        }
+        usort($listOfLaureates, fn($a, $b) => $b->getDateAwarded() <=> $a->getDateAwarded());
+        return array_slice($listOfLaureates, 0, 20);
     }
 
     /**
@@ -72,7 +74,6 @@ class LaureateFetcher
             if (!is_array($rawLaureate)) {
                 continue;
             }
-
             $mappedLaureates[] = $this->mapToLaureate($rawLaureate);
         }
 
@@ -90,15 +91,13 @@ class LaureateFetcher
         try {
             return new Laureate(
                 $rawLaureate['id'],
-                $rawLaureate["fullName"]["en"] ?? "tmp name",
-                isset($rawLaureate['birth']['date']) ? new DateTime($rawLaureate['birth']['date']) : null,
-                //$rawLaureate['nativeCountry'],
-                $rawLaureate["birth"]["place"]["country"]["en"] ?? "tmp country",
-                //$rawLaureate['category'],
+                $rawLaureate["fullName"]["en"] ?? $rawLaureate["orgName"]["en"],
+                new DateTime($rawLaureate['birth']['date'] ?? $rawLaureate["founded"]["date"]),
+                $rawLaureate["birth"]["place"]["country"]["en"] ?? null,
                 $rawLaureate["nobelPrizes"][0]["category"]["en"],
-                isset($rawLaureate["nobelPrizes"][0]['dateAwarded']) ? new DateTime($rawLaureate["nobelPrizes"][0]['dateAwarded']) : null
+                new DateTime($rawLaureate["nobelPrizes"][0]['dateAwarded']) ?? null
             );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // Handle any exceptions that might occur during the mapping process
             return null;
         }

@@ -10,12 +10,12 @@ use JsonSerializable;
 class Laureate implements JsonSerializable
 {
     public function __construct(
-        private readonly int                $id,
-        private readonly ?string            $fullName,
-        private readonly ?DateTime          $birthDate,
-        private readonly ?string            $nativeCountry,
-        private readonly ?string            $category,
-        private readonly ?DateTime          $dateAwarded
+        private int                $id,
+        private ?string            $fullName,
+        private ?DateTime          $birthDate,
+        private ?string            $nativeCountry,
+        private ?string            $category,
+        private ?DateTime          $dateAwarded
     ) {
     }
 
@@ -55,10 +55,10 @@ class Laureate implements JsonSerializable
         return [
             'id' => $this->id,
             'fullName' => $this->fullName,
-            'birthDate' => $this->birthDate,
+            'birthDate' => $this->birthDate?->format("Y-m-d"),
             'nativeCountry'=> $this->nativeCountry,
             'category' => $this->category,
-            'dateAwarded' => $this->dateAwarded,
+            'dateAwarded' => $this->dateAwarded?->format("Y-m-d"),
         ];
     }
 }
