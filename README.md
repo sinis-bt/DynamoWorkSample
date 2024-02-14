@@ -26,8 +26,9 @@ To use this project, follow these steps:
 1. Clone the repository to your local machine.
 
    ```bash
-   git clone <repository-url>
+   git clone git@github.com:sinis-bt/DynamoWorkSample.git
    
 2. composer install
 
-
+   ```bash
+   docker compose -f ./docker-compose.yml -p dynamoworksample up -d --build slim
