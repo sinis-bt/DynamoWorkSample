@@ -92,7 +92,7 @@ class LaureateFetcher
     {
         try {
             return new Laureate(
-                $rawLaureate['id'],
+                (int) $rawLaureate['id'],
                 $rawLaureate['fullName']['en'] ?? $rawLaureate['orgName']['en'],
                 new DateTime($rawLaureate['birth']['date'] ?? $rawLaureate['founded']['date']),
                 $rawLaureate['birth']['place']['country']['en'] ?? null,

@@ -8,7 +8,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class ListLaureatesAction extends LaureatesAction
 {
-
     /**
      * {@inheritdoc}
      */
@@ -20,5 +19,4 @@ class ListLaureatesAction extends LaureatesAction
 
         return $this->respondWithData($laureates);
     }
-
 }
