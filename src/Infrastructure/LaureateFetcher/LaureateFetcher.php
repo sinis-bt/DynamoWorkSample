@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Infrastructure\LaureateFetcher;
 
 use App\Domain\Laureate\Laureate;
@@ -91,11 +93,11 @@ class LaureateFetcher
         try {
             return new Laureate(
                 $rawLaureate['id'],
-                $rawLaureate["fullName"]["en"] ?? $rawLaureate["orgName"]["en"],
-                new DateTime($rawLaureate['birth']['date'] ?? $rawLaureate["founded"]["date"]),
-                $rawLaureate["birth"]["place"]["country"]["en"] ?? null,
-                $rawLaureate["nobelPrizes"][0]["category"]["en"],
-                new DateTime($rawLaureate["nobelPrizes"][0]['dateAwarded'])
+                $rawLaureate['fullName']['en'] ?? $rawLaureate['orgName']['en'],
+                new DateTime($rawLaureate['birth']['date'] ?? $rawLaureate['founded']['date']),
+                $rawLaureate['birth']['place']['country']['en'] ?? null,
+                $rawLaureate['nobelPrizes'][0]['category']['en'],
+                new DateTime($rawLaureate['nobelPrizes'][0]['dateAwarded'])
             );
         } catch (Exception $e) {
             // Handle any exceptions that might occur during the mapping process
