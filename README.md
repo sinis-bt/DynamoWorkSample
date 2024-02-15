@@ -37,3 +37,10 @@ To use this project, follow these steps:
 
    ```bash
    docker compose -f ./docker-compose.yml -p dynamoworksample up -d --build phpunit
+
+### Endpoint URL
+
+To access the list of laureates, use the following endpoint:
+
+[http://localhost:8080/laureates](http://localhost:8080/laureates)
+
