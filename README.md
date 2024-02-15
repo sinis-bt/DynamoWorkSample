@@ -32,3 +32,8 @@ To use this project, follow these steps:
 
    ```bash
    docker compose -f ./docker-compose.yml -p dynamoworksample up -d --build slim
+
+3. composer install run PHP Unit tests
+
+   ```bash
+   docker compose -f ./docker-compose.yml -p dynamoworksample up -d --build phpunit

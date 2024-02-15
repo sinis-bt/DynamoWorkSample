@@ -1,3 +1,4 @@
+# Dockerfile for the phpunit service
 FROM php:8-alpine
 
 WORKDIR /var/www
@@ -9,11 +10,8 @@ RUN apk --no-cache add curl \
 # Copy your application files
 COPY . /var/www
 
-# Install dependencies
+# Install dependencies, including PHPUnit
 RUN composer install
 
-# Expose the port
-EXPOSE 8080
-
-# Command to run the application
-CMD ["php", "-S", "0.0.0.0:8080", "-t", "public"]
+# Command to run PHPUnit
+CMD ["php", "./vendor/bin/phpunit"]

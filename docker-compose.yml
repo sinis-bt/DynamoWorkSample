@@ -15,3 +15,14 @@ services:
             - logs:/var/www/logs
             - ./app:/var/www/app
             - ./src:/var/www/src
+
+    phpunit:
+        build:
+            context: .
+            dockerfile: Dockerfile.phpunit
+        volumes:
+            - logs:/var/www/logs
+            - ./app:/var/www/app
+            - ./src:/var/www/src
+            - ./tests:/var/www/tests
+        entrypoint: [ "php", "./vendor/bin/phpunit" ]
